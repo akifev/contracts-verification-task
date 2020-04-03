@@ -6,7 +6,7 @@ import org.jetbrains.dummy.lang.tree.*
 class VariableInitializationChecker(private val reporter: DiagnosticReporter) : AbstractChecker() {
     private enum class VariableStatus { DEFINED, INITIALIZED }
 
-    private class VariableInfo(var status: VariableStatus, var isInOneBlock: Boolean = true)
+    private class VariableInfo(var status: VariableStatus, val isInOneBlock: Boolean = true)
 
     private inner class VariableInitializationVisitor : DummyLangVisitor<Unit, MutableMap<String, VariableInfo>>() {
         override fun visitElement(element: Element, data: MutableMap<String, VariableInfo>) {
@@ -28,15 +28,13 @@ class VariableInitializationChecker(private val reporter: DiagnosticReporter) : 
         }
 
         override fun visitAssignment(assignment: Assignment, data: MutableMap<String, VariableInfo>) {
-            val variableInfo = data[assignment.variable]
-
-            if (variableInfo == null) {
-                reportAccessToUndefined(assignment)
-            }
-
             super.visitAssignment(assignment, data)
 
-            data[assignment.variable]!!.status = INITIALIZED
+            if (data[assignment.variable] == null) {
+                reportAccessToUndefined(assignment)
+            } else {
+                data[assignment.variable]!!.status = INITIALIZED
+            }
         }
 
         override fun visitVariableDeclaration(
