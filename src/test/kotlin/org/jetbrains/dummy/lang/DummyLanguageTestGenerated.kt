@@ -9,7 +9,17 @@ class DummyLanguageTestGenerated : AbstractDummyLanguageTest() {
     }
     
     @Test
+    fun testBadInnerBlock() {
+        doTest("testData/badInnerBlock.dummy")
+    }
+    
+    @Test
     fun testGood() {
         doTest("testData/good.dummy")
+    }
+    
+    @Test
+    fun testGoodInnerBlock() {
+        doTest("testData/goodInnerBlock.dummy")
     }
 }

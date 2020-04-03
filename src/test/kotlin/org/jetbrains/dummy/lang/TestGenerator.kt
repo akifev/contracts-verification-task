@@ -8,12 +8,6 @@ fun main() {
         testDataRoot = "testData",
         abstractTestClassName = "AbstractDummyLanguageTest"
     )
-
-//    Пример того, как сгенерировать тесты для файлов в директории `testData/someOtherTests`
-//    generateTests(
-//        testDataRoot = "testData/someOtherTests",
-//        abstractTestClassName = "AbstractDummyLanguageTest"
-//    )
 }
 
 /**
