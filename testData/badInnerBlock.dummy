@@ -1,8 +1,12 @@
 fun test() {
     if (true) {
         var x = 1;
+        var x;
     }
     bar(x);
+
+    var y;
+    bar(y);
 }
 
 fun bar(x) {}

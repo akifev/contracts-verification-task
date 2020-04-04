@@ -1,3 +1,4 @@
+ERROR: line 10: Function redeclaration: function named 'bar' with 1 parameters is already declared
 ERROR: line 2: Incorrect function call: there is no function named 'foo' with 0 arguments
 ERROR: line 4: Incorrect function call: there is no function named 'bar' with 0 arguments
 ERROR: line 6: Incorrect function call: there is no function named 'bar' with 2 arguments

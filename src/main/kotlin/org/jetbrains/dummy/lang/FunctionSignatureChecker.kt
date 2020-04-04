@@ -11,7 +11,7 @@ class FunctionSignatureChecker(private val reporter: DiagnosticReporter) : Abstr
         override fun visitFunctionDeclaration(functionDeclaration: FunctionDeclaration, data: Any?) {
             val setOfNonConflicting = mutableSetOf<String>()
             functionDeclaration.parameters.forEach {
-                if (setOfNonConflicting.contains(it)) {
+                if (it in setOfNonConflicting) {
                     setOfNonConflicting.remove(it)
                 } else {
                     setOfNonConflicting.add(it)
@@ -19,7 +19,7 @@ class FunctionSignatureChecker(private val reporter: DiagnosticReporter) : Abstr
             }
 
             functionDeclaration.parameters.forEach {
-                if (!setOfNonConflicting.contains(it)) {
+                if (it !in setOfNonConflicting) {
                     reportParameterNameConflict(functionDeclaration, it)
                 }
             }
@@ -33,7 +33,7 @@ class FunctionSignatureChecker(private val reporter: DiagnosticReporter) : Abstr
     private fun reportParameterNameConflict(functionDeclaration: FunctionDeclaration, parameter: String) {
         reporter.report(
             functionDeclaration,
-            "Parameter name conflict in function '${functionDeclaration.name}' declaration: parameter '${parameter}' occurs several times"
+            "Parameter name conflict: in function '${functionDeclaration.name}' declaration parameter '${parameter}' occurs several times"
         )
     }
 }

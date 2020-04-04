@@ -1,2 +1,2 @@
-ERROR: line 6: Parameter name conflict in function 'bar' declaration: parameter 'x' occurs several times
-ERROR: line 6: Parameter name conflict in function 'bar' declaration: parameter 'x' occurs several times
+ERROR: line 6: Parameter name conflict: in function 'bar' declaration parameter 'x' occurs several times
+ERROR: line 6: Parameter name conflict: in function 'bar' declaration parameter 'x' occurs several times

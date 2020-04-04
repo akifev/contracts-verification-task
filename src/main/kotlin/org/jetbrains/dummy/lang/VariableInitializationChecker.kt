@@ -4,7 +4,7 @@ import org.jetbrains.dummy.lang.VariableInitializationChecker.VariableStatus.*
 import org.jetbrains.dummy.lang.tree.*
 
 class VariableInitializationChecker(private val reporter: DiagnosticReporter) : AbstractChecker() {
-    private enum class VariableStatus { DEFINED, INITIALIZED }
+    private enum class VariableStatus { DECLARED, INITIALIZED }
 
     private class VariableInfo(var status: VariableStatus, val isInOneBlock: Boolean = true)
 
@@ -44,10 +44,10 @@ class VariableInitializationChecker(private val reporter: DiagnosticReporter) : 
             super.visitVariableDeclaration(variableDeclaration, data)
 
             if (data[variableDeclaration.name]?.isInOneBlock == true) {
-                reportRedefinition(variableDeclaration)
+                reportRedeclaration(variableDeclaration)
             } else {
                 data[variableDeclaration.name] =
-                    VariableInfo(if (variableDeclaration.initializer != null) INITIALIZED else DEFINED)
+                    VariableInfo(if (variableDeclaration.initializer != null) INITIALIZED else DECLARED)
             }
         }
 
@@ -67,18 +67,21 @@ class VariableInitializationChecker(private val reporter: DiagnosticReporter) : 
     }
 
     private fun reportAccessBeforeInitialization(access: VariableAccess) {
-        reporter.report(access, "Variable '${access.name}' is accessed before initialization")
+        reporter.report(access, "Access error: variable '${access.name}' is accessed before initialization")
     }
 
     private fun reportAccessToUndefined(assignment: Assignment) {
-        reporter.report(assignment, "Variable '${assignment.variable}' is undefined")
+        reporter.report(assignment, "Access error: variable '${assignment.variable}' is undefined")
     }
 
     private fun reportAccessToUndefined(variableAccess: VariableAccess) {
-        reporter.report(variableAccess, "Variable '${variableAccess.name}' is undefined")
+        reporter.report(variableAccess, "Access error: variable '${variableAccess.name}' is undefined")
     }
 
-    private fun reportRedefinition(variableDeclaration: VariableDeclaration) {
-        reporter.report(variableDeclaration, "Variable '${variableDeclaration.name}' is already defined")
+    private fun reportRedeclaration(variableDeclaration: VariableDeclaration) {
+        reporter.report(
+            variableDeclaration,
+            "Variable redeclaration: variable '${variableDeclaration.name}' is already declared"
+        )
     }
 }
