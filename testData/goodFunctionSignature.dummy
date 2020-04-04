@@ -1,0 +1,6 @@
+fun test() {
+    var x = 1;
+    bar(x, x);
+}
+
+fun bar(x, y) {}

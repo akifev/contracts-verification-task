@@ -63,8 +63,7 @@ class VariableInitializationChecker(private val reporter: DiagnosticReporter) : 
     }
 
     override fun inspect(file: File) {
-        val visitor = VariableInitializationVisitor()
-        visitor.visitFile(file, mutableMapOf())
+        file.accept(VariableInitializationVisitor(), mutableMapOf())
     }
 
     private fun reportAccessBeforeInitialization(access: VariableAccess) {
