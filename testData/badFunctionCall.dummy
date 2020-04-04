@@ -1,0 +1,9 @@
+fun test() {
+    foo();
+
+    bar();
+    bar(1);
+    bar(1, 2);
+}
+
+fun bar(x) {}

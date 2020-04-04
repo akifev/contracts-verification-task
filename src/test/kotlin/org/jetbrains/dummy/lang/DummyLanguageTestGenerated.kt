@@ -9,6 +9,11 @@ class DummyLanguageTestGenerated : AbstractDummyLanguageTest() {
     }
     
     @Test
+    fun testBadFunctionCall() {
+        doTest("testData/badFunctionCall.dummy")
+    }
+    
+    @Test
     fun testBadFunctionSignature() {
         doTest("testData/badFunctionSignature.dummy")
     }
@@ -21,6 +26,11 @@ class DummyLanguageTestGenerated : AbstractDummyLanguageTest() {
     @Test
     fun testGood() {
         doTest("testData/good.dummy")
+    }
+    
+    @Test
+    fun testGoodFunctionCall() {
+        doTest("testData/goodFunctionCall.dummy")
     }
     
     @Test
