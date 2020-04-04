@@ -3,7 +3,6 @@ package org.jetbrains.dummy.lang
 import org.jetbrains.dummy.lang.tree.*
 
 class FunctionSignatureChecker(private val reporter: DiagnosticReporter) : AbstractChecker() {
-
     private inner class FunctionSignatureVisitor : DummyLangVisitor<Unit, Any?>() {
         override fun visitElement(element: Element, data: Any?) {
             element.acceptChildren(this, data)
