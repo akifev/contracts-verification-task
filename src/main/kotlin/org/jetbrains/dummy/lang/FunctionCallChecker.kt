@@ -25,8 +25,9 @@ class FunctionCallChecker(private val reporter: DiagnosticReporter) : AbstractCh
             val functionInfo = Pair(it.name, it.parameters.size)
             if (functionInfo in declaredFunctions) {
                 reportRedeclaration(it)
+            } else {
+                declaredFunctions.add(functionInfo)
             }
-            declaredFunctions.add(functionInfo)
         }
 
         file.accept(FunctionCallVisitor(declaredFunctions), null)
